@@ -9,7 +9,7 @@
     <br/><br/>
     <a href="link to paper">Paper</a>
     .
-    <a href="https://arhosseini77.github.io">Project Page</a>
+    <a href="https://arhosseini77.github.io/sum_page/">Project Page</a>
   </p>
 </div>
 
