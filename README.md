@@ -5,7 +5,7 @@
 <br/>
 <div align="center">
   <p>
-    <strong>S</strong>aliency <strong>U</strong>nification through <strong>M</strong>amba for Visual Content Prediction
+    <strong>S</strong>aliency <strong>U</strong>nification through <strong>M</strong>amba for Visual Attention Modeling
     <br/><br/>
     <a href="link to paper">Paper</a>
     .
