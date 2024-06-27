@@ -7,7 +7,7 @@
   <p>
     <strong>S</strong>aliency <strong>U</strong>nification through <strong>M</strong>amba for Visual Attention Modeling
     <br/><br/>
-    <a href="link to paper">Paper</a>
+    <a href="https://arxiv.org/abs/2406.17815">Paper</a>
     .
     <a href="https://arhosseini77.github.io/sum_page/">Project Page</a>
   </p>
@@ -129,10 +129,13 @@ We would like to thank the authors and contributors of [VMamba](https://github.c
 
 # Citation
 ```bibtex
-@article{hosseini2024sum,
-  title={},
-  author={},
-  journal={},
-  year={2024}
+@misc{hosseini2024sum,
+      title={SUM: Saliency Unification through Mamba for Visual Attention Modeling}, 
+      author={Alireza Hosseini and Amirhossein Kazerouni and Saeed Akhavan and Michael Brudno and Babak Taati},
+      year={2024},
+      eprint={2406.17815},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2406.17815}, 
 }
 ```
