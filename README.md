@@ -15,7 +15,7 @@
 
 <br/>
 <div align="center">
-  <img src="https://img.shields.io/github/license/Arhosseini77/SAL_UMamba" alt="License"> 
+  <img src="https://img.shields.io/github/license/Arhosseini77/SUM" alt="License"> 
   <a href="https://colab.research.google.com/drive/1G6bZ_knpNDo105q4rLQUPIMhP-_5bpZR?usp=sharing">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab">
   </a>
