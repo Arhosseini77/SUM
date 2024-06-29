@@ -129,13 +129,10 @@ We would like to thank the authors and contributors of [VMamba](https://github.c
 
 # Citation
 ```bibtex
-@misc{hosseini2024sum,
-      title={SUM: Saliency Unification through Mamba for Visual Attention Modeling}, 
-      author={Alireza Hosseini and Amirhossein Kazerouni and Saeed Akhavan and Michael Brudno and Babak Taati},
-      year={2024},
-      eprint={2406.17815},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2406.17815}, 
+@article{hosseini2024sum,
+  title={SUM: Saliency Unification through Mamba for Visual Attention Modeling},
+  author={Hosseini, Alireza and Kazerouni, Amirhossein and Akhavan, Saeed and Brudno, Michael and Taati, Babak},
+  journal={arXiv preprint arXiv:2406.17815},
+  year={2024}
 }
 ```
