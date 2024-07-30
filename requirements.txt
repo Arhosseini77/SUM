@@ -7,9 +7,6 @@ opencv-python==4.6.0.66
 pandas
 scikit-learn
 matplotlib
-thop
 h5py
-SimpleITK
-medpy
 yacs
 timm
