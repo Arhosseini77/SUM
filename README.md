@@ -32,6 +32,11 @@
 </div>
 
 
+# 💥 News 💥
+- **`25.06.2024`** | Code is released!
+- **`30.08.2024`** | Accepted in WACV 2025! 🥳
+
+
 # Installation
 
 Ensure you have Python >= 3.10 installed on your system. Then, install the required libraries and dependencies.
