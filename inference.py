@@ -82,12 +82,16 @@ def main():
     parser.add_argument('--condition', type=int, required=True, choices=[0, 1, 2, 3])
     parser.add_argument('--output_path', type=str, default='results')
     parser.add_argument('--heat_map_type', type=str, default='HOT', choices=['HOT', 'Overlay'], help='Type of heatmap: HOT or Overlay')
+    parser.add_argument('--from_pretrained', type=str)
     args = parser.parse_args()
 
     if not os.path.exists(args.output_path):
         os.makedirs(args.output_path)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = setup_model(device)
+    if args.from_pretrained:
+        model = SUM.from_pretrained(args.from_pretrained).to(device)
+    else:
+        model = setup_model(device)
 
     pred_saliency, orig_size = saliency_map_prediction(args.img_path, args.condition, model, device)
 

@@ -1,9 +1,10 @@
 from .vmamba import VSSM
 import torch
 from torch import nn
+from huggingface_hub import PyTorchModelHubMixin
 
 
-class SUM(nn.Module):
+class SUM(nn.Module, PyTorchModelHubMixin):
     def __init__(self,
                  input_channels=3,
                  num_classes=1,
