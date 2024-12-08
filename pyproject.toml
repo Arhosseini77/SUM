@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SUM"
+version = "0.1.0"
+description = "Saliency Unification through Mamba for Visual Attention Modeling"
+authors = [
+    {name = "Alireza Hosseini"},
+    {name = "Amirhossein Kazerouni"},
+    {name = "Saeed Akhavan"},
+    {name = "Michael Brudno"},
+    {name = "Babak Taati"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+keywords = ["saliency", "visual attention", "computer vision", "machine learning"]
+
+dependencies = [
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+    "torchaudio>=2.1.0",
+    "scikit-image",
+    "packaging",
+    "causal-conv1d>=1.1.0",
+    "mamba-ssm",
+    "monai",
+    "opencv-python>=4.6.0.66",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "h5py",
+    "yacs",
+    "timm",
+    "huggingface_hub"
+]
+
+[tool.setuptools.package-dir]
+SUM = "net"

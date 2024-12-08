@@ -10,3 +10,4 @@ matplotlib
 h5py
 yacs
 timm
+huggingface_hub
