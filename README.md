@@ -162,7 +162,7 @@ iface.launch(debug=True)
 ```
 
 ### example
-<div align="center"> <img src="assets/gradio_demo.png" alt="Gradio Demo" style="width: 80%;"> <p style="font-size: small;">Screenshot of the Gradio interface for SUM Saliency Map Prediction.</p> </div>
+<div align="center"> <img src="assets/gradio_demo.png" alt="Gradio Demo" style="width: 80%;"> <p style="font-size: small;">The Gradio interface for SUM Saliency Map Prediction.</p> </div>
 
 
 ## Training
@@ -194,7 +194,7 @@ python validation.py
 
 # Acknowledgment
 
-We would like to thank the authors and contributors of [VMamba](https://github.com/MzeroMiko/VMamba), [VM-UNet](https://github.com/JCruan519/VM-UNet), and [TranSalNet](https://github.com/LJOVO/TranSalNet) for their open-sourced code which significantly aided this project.
+We would like to thank the authors and contributors of [VMamba](https://github.com/MzeroMiko/VMamba), [VM-UNet](https://github.com/JCruan519/VM-UNet), and [TranSalNet](https://github.com/LJOVO/TranSalNet) for their open-sourced code, which significantly aided this project. Additionally, we extend our gratitude to [JacobLinCool](https://github.com/JacobLinCool) for his invaluable contributions in packaging the code, deployment, and developing the Gradio demo inference for the model.
 
 # Citation
 ```bibtex
