@@ -22,6 +22,7 @@
 # 💥 News 💥
 - **`25.06.2024`** | Code is released!
 - **`30.08.2024`** | Accepted in WACV 2025! 🥳
+- **`08.12.2024`** | Gradio demo added and SUM is now package-installable via pip! 🎉
 
 
 # Installation
@@ -38,6 +39,15 @@ pip install -r requirements.txt
 ```
 * If you encounter NVCC problems during installation, see: [NVCC Issue](https://github.com/Arhosseini77/SUM/issues/1).
 
+
+### Install via pip
+
+You can also install the **SUM** package directly from GitHub using pip:
+
+```bash
+pip install git+https://github.com/Arhosseini77/SUM.git
+```
+
 ## Pre-trained Weights
 
 Download the **SUM** model from the provided Google Drive link and move it to the specified directory:
@@ -46,6 +56,8 @@ Download the **SUM** model from the provided Google Drive link and move it to th
 - Move `sum_model.pth` to: `net/pre_trained_weights`
 
 # Usage
+
+
 
 ## Inference
 
@@ -86,6 +98,71 @@ python inference.py --img_path input_image.jpg --condition 2 --output_path outpu
 | Input                                                         | SUM                                                       |
 |---------------------------------------------------------------|-----------------------------------------------------------|
 | <img src="assets/input.jpg" alt="Original Image" width="300"> | <img src="assets/sum.png" alt="Saliency Map" width="300"> |
+
+
+
+## Gradio Demo
+
+We are excited to introduce a Gradio-based interactive demo for the **SUM** model. This demo allows you to easily generate saliency maps through a user-friendly web interface.
+
+### Running the Gradio Interface
+
+Here is a simple example to launch the Gradio demo:
+
+```python
+import os
+import gradio as gr
+from accelerate import Accelerator
+from SUM import (
+    SUM,
+    load_and_preprocess_image,
+    predict_saliency_map,
+    overlay_heatmap_on_image,
+    write_heatmap_to_image,
+)
+
+accelerator = Accelerator()
+model = SUM.from_pretrained("safe-models/SUM").to(accelerator.device)
+
+def predict(image_path, condition):
+    filename = os.path.splitext(os.path.basename(image_path))[0]
+    hot_output_filename = f"{filename}_saliencymap.png"
+    overlay_output_filename = f"{filename}_overlay.png"
+
+    image, orig_size = load_and_preprocess_image(image_path)
+    saliency_map = predict_saliency_map(image, condition, model, accelerator.device)
+    write_heatmap_to_image(saliency_map, orig_size, hot_output_filename)
+    overlay_heatmap_on_image(image_path, hot_output_filename, overlay_output_filename)
+
+    return overlay_output_filename, hot_output_filename
+
+iface = gr.Interface(
+    fn=predict,
+    inputs=[
+        gr.Image(type="filepath", label="Input"),
+        gr.Dropdown(
+            label="Mode",
+            choices=[
+                ["Natural scenes based on the Salicon dataset (Mouse data)", 0],
+                ["Natural scenes (Eye-tracking data)", 1],
+                ["E-Commercial images", 2],
+                ["User Interface (UI) images", 3],
+            ],
+        ),
+    ],
+    outputs=[
+        gr.Image(type="filepath", label="Overlay"),
+        gr.Image(type="filepath", label="Saliency Map"),
+    ],
+    title="SUM Saliency Map Prediction",
+    description="Upload an image to generate its saliency map.",
+)
+
+iface.launch(debug=True)
+```
+
+### example
+<div align="center"> <img src="assets/gradio_demo.png" alt="Gradio Demo" style="width: 80%;"> <p style="font-size: small;">Screenshot of the Gradio interface for SUM Saliency Map Prediction.</p> </div>
 
 
 ## Training
