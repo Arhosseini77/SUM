@@ -1,4 +1,4 @@
-<div align="center"> <img src="assets/sum_gif.gif" alt="Brand-Attention Module" style="width: 60%;"> </div> <br/> <div align="center"> <p> <strong>S</strong>aliency <strong>U</strong>nification through <strong>M</strong>amba for Visual Attention Modeling <br/><br/> <strong>WACV2025</strong> <br/><br/> <a href="https://arxiv.org/abs/2406.17815">Paper</a> . <a href="https://arhosseini77.github.io/sum_page/">Project Page</a> </p> </div>
+<div align="center"> <img src="assets/sum_gif.gif" alt="Brand-Attention Module" style="width: 60%;"> </div> <br/> <div align="center"> <p> <strong>S</strong>aliency <strong>U</strong>nification through <strong>M</strong>amba for Visual Attention Modeling <br/><br/> <strong>WACV2025 - Oral</strong> <br/><br/> <a href="https://arxiv.org/abs/2406.17815">Paper</a> . <a href="https://arhosseini77.github.io/sum_page/">Project Page</a> </p> </div>
 
 <br/>
 <div align="center">
