@@ -198,12 +198,15 @@ We would like to thank the authors and contributors of [VMamba](https://github.c
 
 # Citation
 ```bibtex
-@InProceedings{Hosseini_2025_WACV,
-    author    = {Hosseini, Alireza and Kazerouni, Amirhossein and Akhavan, Saeed and Brudno, Michael and Taati, Babak},
-    title     = {SUM: Saliency Unification through Mamba for Visual Attention Modeling},
-    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
-    month     = {February},
-    year      = {2025},
-    pages     = {1597-1607}
-}
+@INPROCEEDINGS{10943661,
+  author={Hosseini, Alireza and Kazerouni, Amirhossein and Akhavan, Saeed and Brudno, Michael and Taati, Babak},
+  booktitle={2025 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)}, 
+  title={SUM: Saliency Unification Through Mamba for Visual Attention Modeling}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1597-1607},
+  keywords={Measurement;Visualization;Adaptation models;Computational modeling;Web pages;Predictive models;Benchmark testing;Transformers;Robustness;Convolutional neural networks;mamba;saliency-map;visual-attention;marketing},
+  doi={10.1109/WACV61041.2025.00163}}
+
 ```
