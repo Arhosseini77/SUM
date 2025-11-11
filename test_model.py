@@ -3,6 +3,7 @@ from net.configs.config_setting import setting_config
 import torch
 
 config = setting_config
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 model_cfg = config.model_config
 if config.network == 'sum':
@@ -14,22 +15,16 @@ if config.network == 'sum':
         drop_path_rate=model_cfg['drop_path_rate'],
     )
     model.load_from()
-    model.cuda()
+    model.to(device)
 
 # Freeze the encoder
 for param in model.salu_mamba.layers.parameters():
     param.requires_grad = False
 
-# Move the model to GPU
-model.cuda()
-
-conditions = torch.eye(4)[torch.randint(0, 4, (10,))].cuda()
-
-# Move the model to GPU (if not already moved)
-model.cuda()
+conditions = torch.eye(4)[torch.randint(0, 4, (10,))].to(device)
 
 # Generate a random input tensor
-inp = torch.rand(10, 3, 256, 256).cuda()
+inp = torch.rand(10, 3, 256, 256).to(device)
 
 # Perform a forward pass with the input and condition
 out = model(inp, conditions)

@@ -89,7 +89,7 @@ if config.network == 'sum':
         drop_path_rate=model_cfg['drop_path_rate'],
     )
     model.load_from()
-    model.cuda()
+    model.to(device)
 
 total_params = sum(p.numel() for p in model.parameters())
 print(f"Total number of parameters in the model: {total_params}")
@@ -139,7 +139,7 @@ def perform_validation_inference(val_loaders, model, device):
         print(f"{name} - Val Metrics: {metrics_str}")
 
     # After validation phase
-    total_val_loss = sum([np.sum(val_metrics[name]['kl']) for name in val_loaders.keys()])
+    total_val_loss = sum([val_metrics[name]['kl'][0] for name in val_loaders.keys()])
 
     print(f"Total Val Loss across all datasets: {total_val_loss:.4f}")
 

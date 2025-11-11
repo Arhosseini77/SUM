@@ -33,7 +33,8 @@ class SaliencyLoss(nn.Module):
         elif loss_type == 'auc':
             for i in range(labels.shape[0]):
                 loss = AUC_Judd(preds[i], labels[i])
-                loss_tensor = t.tensor(loss, dtype=t.float64, device="cuda:0")  # Convert to tensor
+                # Use the same device as the input tensors
+                loss_tensor = t.tensor(loss, dtype=t.float64, device=preds.device)  # Convert to tensor
                 losses.append(loss_tensor)
 
         return t.stack(losses).mean(dim=0, keepdim=True)
@@ -41,25 +42,34 @@ class SaliencyLoss(nn.Module):
 
 def loss_KLdiv(pred_map, gt_map):
     eps = 2.2204e-16
-    pred_map = pred_map / t.sum(pred_map)
-    gt_map = gt_map / t.sum(gt_map)
+    pred_sum = t.sum(pred_map)
+    gt_sum = t.sum(gt_map)
+    # Add epsilon to prevent division by zero
+    pred_map = pred_map / (pred_sum + eps)
+    gt_map = gt_map / (gt_sum + eps)
     div = t.sum(t.mul(gt_map, t.log(eps + t.div(gt_map, pred_map + eps))))
     return div
 
 
 def loss_CC(pred_map, gt_map):
+    eps = 2.2204e-16
     gt_map_ = (gt_map - t.mean(gt_map))
     pred_map_ = (pred_map - t.mean(pred_map))
-    cc = t.sum(t.mul(gt_map_, pred_map_)) / t.sqrt(t.sum(t.mul(gt_map_, gt_map_)) * t.sum(t.mul(pred_map_, pred_map_)))
+    numerator = t.sum(t.mul(gt_map_, pred_map_))
+    denominator = t.sqrt(t.sum(t.mul(gt_map_, gt_map_)) * t.sum(t.mul(pred_map_, pred_map_)) + eps)
+    cc = numerator / denominator
     return cc
 
 
 def loss_similarity(pred_map, gt_map):
-    gt_map = (gt_map - t.min(gt_map)) / (t.max(gt_map) - t.min(gt_map))
-    gt_map = gt_map / t.sum(gt_map)
+    eps = 2.2204e-16
+    gt_range = t.max(gt_map) - t.min(gt_map)
+    gt_map = (gt_map - t.min(gt_map)) / (gt_range + eps)
+    gt_map = gt_map / (t.sum(gt_map) + eps)
 
-    pred_map = (pred_map - t.min(pred_map)) / (t.max(pred_map) - t.min(pred_map))
-    pred_map = pred_map / t.sum(pred_map)
+    pred_range = t.max(pred_map) - t.min(pred_map)
+    pred_map = (pred_map - t.min(pred_map)) / (pred_range + eps)
+    pred_map = pred_map / (t.sum(pred_map) + eps)
 
     diff = t.min(gt_map, pred_map)
     score = t.sum(diff)
@@ -69,8 +79,9 @@ def loss_similarity(pred_map, gt_map):
 
 def loss_NSS(pred_map, fix_map):
     '''ground truth here is a fixation map'''
-
-    pred_map_ = (pred_map - t.mean(pred_map)) / t.std(pred_map)
+    eps = 2.2204e-16
+    pred_std = t.std(pred_map)
+    pred_map_ = (pred_map - t.mean(pred_map)) / (pred_std + eps)
 
     # Convert the fixation map to a binary mask
     fix_map_binary = fix_map > 0

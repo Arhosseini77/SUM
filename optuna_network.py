@@ -10,7 +10,7 @@ from tqdm import tqdm
 from utils.loss_function import SaliencyLoss
 from utils.data_process_uni import TrainDataset, ValDataset
 
-from net.models.SUM import salu_mamba
+from net.models.SUM import SUM
 from net.configs.config_setting import setting_config
 
 import optuna
@@ -67,7 +67,7 @@ class SubsetDataset(Dataset):
 # Load training datasets with subset
 train_datasets = [
     SubsetDataset(
-        TrainDataset(datasets_info=[info], transform=train_transform),
+        TrainDataset(datasets_info=[info], transform=train_transform, num_classes=5),
         subset_ratio=0.10
     ) for info in train_datasets_info
 ]
@@ -83,7 +83,8 @@ val_datasets = [
             saliency_dir=info["saliency_dir"],
             fixation_dir=info["fixation_dir"],
             label=info["label"],
-            transform=val_transform
+            transform=val_transform,
+            num_classes=5
         ),
         subset_ratio=0.10
     ) for info in val_datasets_info
@@ -121,7 +122,7 @@ def objective(trial):
     model_cfg = config.model_config
 
     if config.network == 'sum':
-        model = salu_mamba(
+        model = SUM(
             num_classes=model_cfg['num_classes'],
             input_channels=model_cfg['input_channels'],
             depths=model_cfg['depths'],
@@ -130,7 +131,7 @@ def objective(trial):
             load_ckpt_path=model_cfg['load_ckpt_path'],
         )
         model.load_from()
-        model.cuda(0)
+        model.to(device)
 
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = lr_scheduler.StepLR(optimizer, step_size=step_size, gamma=gamma)
@@ -172,6 +173,7 @@ def objective(trial):
         val_cc = 0.0
         val_sim = 0.0
         val_nss = 0.0
+        total_val_samples = 0
 
         with torch.no_grad():
             for name, loader in val_loaders.items():
@@ -189,12 +191,13 @@ def objective(trial):
                     val_sim += sim.item() * stimuli.size(0)
                     val_nss += nss.item() * stimuli.size(0)
                     val_kl += kl.item() * stimuli.size(0)
+                    total_val_samples += stimuli.size(0)
 
             # Compute the average validation loss
-            val_kl /= len(loader.dataset)
-            val_cc /= len(loader.dataset)
-            val_sim /= len(loader.dataset)
-            val_nss /= len(loader.dataset)
+            val_kl /= total_val_samples
+            val_cc /= total_val_samples
+            val_sim /= total_val_samples
+            val_nss /= total_val_samples
 
             combined_loss = val_kl - (val_cc + val_sim + val_nss)
 
